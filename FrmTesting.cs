@@ -34,11 +34,18 @@ namespace UpdateUIviaSeparteThread
         private void GetTheThreadStarted()
         {
             DelegateTxtboxUI myDelegateUI = new DelegateTxtboxUI(UpdateTextbox);
-            this.Txt01.BeginInvoke(myDelegateUI, $"Updated from THREAD: {Thread.CurrentThread.Name}");
+            this.Txt01.BeginInvoke(myDelegateUI, $"Updated from THREAD:TBX {Thread.CurrentThread.Name}");
+            CheckForIllegalCrossThreadCalls = false;
+            this.LbxOutput.Items.Add("CheckForIllegalCrossThreadCalls = false");
+            this.LbxOutput.Items.Add($"Updated from THREAD:LBX {Thread.CurrentThread.Name}");
+            CheckForIllegalCrossThreadCalls = true;
+            //this.LbxOutput.Items.Add("CheckForIllegalCrossThreadCalls = true");
         }
 
         private void UpdateTextbox(string str)
         {
+            LbxOutput.Items.Add($"Updated from THREAD: {Thread.CurrentThread.Name}");
+            LbxOutput.Items.Add(str);
             this.Txt01.Text = str;
         }
 
